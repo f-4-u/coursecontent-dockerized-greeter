@@ -95,4 +95,4 @@ Examples:
 
 ## License
 
-This project is licensed under the GNU General Public License (GPL) - see the [LICENSE](https://chat.openai.com/c/LICENSE) file for details.
+This project is licensed under the GNU General Public License (GPL) - see the [LICENSE](https://github.com/f-4-u/coursecontent-dockerized-greeter/blob/main/LICENSE) file for details.
