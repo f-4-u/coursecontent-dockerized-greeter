@@ -5,10 +5,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - USER=${USER}    # Environment variables mapped to build args
+        - GROUP=${GROUP}  # See above
     container_name: greeter
-    command: greeter -l /log/user.log root greatuser
+    command: greeter -l /log/user.log root $USER # user that checked from the script
+    environment:
+      - USER=$USER      # Current host user which runs the docker-compose command
+      - GROUP=$USER     # See above
     volumes:
-      - pers_log:/log
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - pers_log:/log:rw
     restart: unless-stopped
 
 volumes:

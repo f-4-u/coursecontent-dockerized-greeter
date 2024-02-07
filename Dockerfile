@@ -29,6 +29,10 @@ RUN chmod u+x /app/greeter.sh
 # Stage 2: Final stage
 FROM alpine:latest AS final
 
+# Define environment variables with default values
+ARG USER=greatuser
+ARG GROUP=nobody
+
 # Install required tools and binaries
 RUN apk add --update --no-cache \
     bash \
@@ -39,7 +43,7 @@ RUN apk add --update --no-cache \
     && rm -rf /var/cache/apk/*
 
 # Create a non-root user
-RUN adduser -D greatuser
+RUN adduser -D $USER
 
 # Set working directory
 WORKDIR /app
@@ -48,13 +52,13 @@ WORKDIR /app
 COPY --from=builder /app/greeter.sh /app/greeter
 
 # Set ownership of files to the non-root user
-RUN chown -R greatuser:greatuser /app
+RUN chown -R $USER:$USER /app
 
 # Switch to the non-root user
-USER greatuser
+USER $USER
 
 # Set the PATH environment variable to include the /app directory
-ENV PATH="/app:$PATH"
+ENV PATH="/app:/bin:$PATH"
 
 # Define the default command to execute when the container starts
 CMD ["/bin/bash", "-c", "greeter"]
