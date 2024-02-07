@@ -9,7 +9,7 @@ services:
         - USER=${USER}    # Environment variables mapped to build args
         - GROUP=${GROUP}  # See above
     container_name: greeter
-    command: greeter -l /log/user.log root $USER # user that checked from the script
+    command: greeter -l /log/user.log root $USER # users which will greeted from the script
     environment:
       - USER=$USER      # Current host user which runs the docker-compose command
       - GROUP=$USER     # See above
