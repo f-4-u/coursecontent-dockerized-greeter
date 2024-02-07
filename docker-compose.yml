@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  greeter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: greeter
+    command: greeter -l /log/user.log root greatuser
+    volumes:
+      - pers_log:/log
+    restart: unless-stopped
+
+volumes:
+  pers_log:
